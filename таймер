@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Таймер</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="box">
+<h1>⏳ Таймер</h1>
+<input id="seconds" type="number" min="1" value="60" placeholder="Секунды">
+<br>
+<button onclick="start()">Старт</button>
+<button onclick="stop()">Стоп</button>
+<button onclick="reset()">Сброс</button>
+<div id="time">01:00</div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
+
+*body{font-family:Arial;background:#dff4ff;display:grid;place-items:center;min-height:100vh;margin:0}
+.box{background:white;padding:30px;border-radius:20px;text-align:center;box-shadow:0 5px 20px #abc}
+h1{color:#2585b4}
+input,button{padding:12px;border:1px solid #b5e1f5;border-radius:8px;margin:5px}
+button{background:#80d0f2;cursor:pointer}
+#time{font-size:45px;color:#2585b4;margin:20px}
+
+function start(){
+if(interval)return;
+if(remaining<=0)remaining=Math.max(1,Number(document.getElementById('seconds').value)||60);
+show();
+interval=setInterval(()=>{
+remaining--;
+show();
+if(remaining<=0){stop();display.textContent='Время вышло!';}
+},1000);
+}
+function stop(){clearInterval(interval);interval=null;}
+function reset(){
+stop();
+remaining=Math.max(1,Number(document.getElementById('seconds').value)||60);
+show();
+}
+reset();
